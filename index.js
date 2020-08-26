@@ -13,8 +13,9 @@ function getSongs() {
                 <div data-id=${song.id}>
                     <img src = ${song.attributes.album_url}
                     height="200" width ="250">
-                    <h3>${song.attributes.title}</h3>
-                    <p>${song.attributes.artist.name}</p>
+                    <h3>Song Title: ${song.attributes.title}</h3>
+                    <h5>Genre: ${song.attributes.genre}</h5>
+                    <p>Artist: ${song.attributes.artist.name}</p>
                     <button data-id=${song.id}>edit</button>
                 </div>
                 <br><br>`;
