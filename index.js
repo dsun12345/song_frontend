@@ -40,5 +40,29 @@ function createFormHandler (e) {
 }
 
 function postFetch(title, genre, image_url, artist_id) {
-    console.log(title, genre, image_url, artist_id);
+    fetch(endPoint, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            title: title,
+            genre: genre, 
+            album_url: image_url,
+            artist_id: artist_id
+        })
+    })
+    .then(response => response.json())
+    .then(song => {
+        console.log(song);
+        // const songData = song.data
+        // const songMarkup = `
+        // <div data-id=${song.id}>
+        //     <img src=${songData.attributes.album_url} height="200" width="250">
+        //     <h3>${songData.attributes.title}</h3>
+        //     <p>${songData.attributes.artist.name}</p>
+        //     <button data-id=${songData.id}>edit</button>
+        // </div>
+        // <br><br>`;
+
+        // document.querySelector("#song-container").innerHTML += songMarkup
+    })
 }
