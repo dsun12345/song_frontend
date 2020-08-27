@@ -2,6 +2,11 @@ const endPoint = "http://localhost:3000/api/v1/songs"
 
 document.addEventListener('DOMContentLoaded', () => {
     getSongs()
+
+    const createSongForm = document.querySelector("#create-song-form")
+
+    createSongForm.addEventListener("submit", (e) => 
+    createFormHandler(e))
 })
 
 function getSongs() {
@@ -23,4 +28,15 @@ function getSongs() {
                 document.querySelector('#song-container').innerHTML += songMarkup
         })
     })
+}
+
+function createFormHandler (e) {
+    e.preventDefault()
+    const titleInput = document.querySelector('#input-title').value
+    const genreInput = document.querySelector('#input-genre').value
+    const imageInput = document.querySelector('#input-url').value
+    const artistInput = document.querySelector('#artists').value
+    const artistId = parseInt(artistInput)
+
+
 }
