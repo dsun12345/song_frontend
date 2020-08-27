@@ -35,8 +35,10 @@ function createFormHandler (e) {
     const titleInput = document.querySelector('#input-title').value
     const genreInput = document.querySelector('#input-genre').value
     const imageInput = document.querySelector('#input-url').value
-    const artistInput = document.querySelector('#artists').value
-    const artistId = parseInt(artistInput)
+    const artistId = parseInt(document.querySelector('#artists').value)
+    postFetch(titleInput, genreInput, imageInput, artistId)
+}
 
-
+function postFetch(title, genre, image_url, artist_id) {
+    console.log(title, genre, image_url, artist_id);
 }
