@@ -40,15 +40,11 @@ function createFormHandler (e) {
 }
 
 function postFetch(title, genre, image_url, artist_id) {
+    const bodyData = {title, genre, image_url, artist_id}
     fetch(endPoint, {
-        method: "POST",
+        method: "POST",     
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            title: title,
-            genre: genre, 
-            album_url: image_url,
-            artist_id: artist_id
-        })
+        body: JSON.stringify(bodyData)
     })
     .then(response => response.json())
     .then(song => {
