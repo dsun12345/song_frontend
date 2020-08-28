@@ -14,33 +14,39 @@ function getSongs() {
     .then(response => response.json())
     .then(songs => {
         songs.data.forEach(song => {
-            const songMarkup = `
-                <div data-id=${song.id}>
-                    <img src = ${song.attributes.album_url}
-                    height="200" width ="250">
-                    <h3>Song Title: ${song.attributes.title}</h3>
-                    <h5>Genre: ${song.attributes.genre}</h5>
-                    <p>Artist: ${song.attributes.artist.name}</p>
-                    <button data-id=${song.id}>edit</button>
-                </div>
-                <br><br>`;
-
-                document.querySelector('#song-container').innerHTML += songMarkup
+            render(song)
         })
     })
 }
+
+function render (song) {
+    const songMarkup = `
+    <div data-id=${song.id}>
+        <img src = ${song.attributes.album_url}
+        height="200" width ="250">
+        <h3>Song Title: ${song.attributes.title}</h3>
+        <h5>Genre: ${song.attributes.genre}</h5>
+        <p>Artist: ${song.attributes.artist.name}</p>
+        <button data-id=${song.id}>edit</button>
+    </div>
+    <br><br>`;
+
+    document.querySelector('#song-container').innerHTML += songMarkup
+}
+
+
 
 function createFormHandler (e) {
     e.preventDefault()
     const titleInput = document.querySelector('#input-title').value
     const genreInput = document.querySelector('#input-genre').value
-    const imageInput = document.querySelector('#input-url').value
+    const albumInput = document.querySelector('#input-url').value
     const artistId = parseInt(document.querySelector('#artists').value)
-    postFetch(titleInput, genreInput, imageInput, artistId)
+    postFetch(titleInput, genreInput, albumInput, artistId)
 }
 
-function postFetch(title, genre, image_url, artist_id) {
-    const bodyData = {title, genre, image_url, artist_id}
+function postFetch(title, genre, album_url, artist_id) {
+    const bodyData = {title, genre, album_url, artist_id}
     fetch(endPoint, {
         method: "POST",     
         headers: {"Content-Type": "application/json"},
@@ -49,16 +55,7 @@ function postFetch(title, genre, image_url, artist_id) {
     .then(response => response.json())
     .then(song => {
         console.log(song);
-        // const songData = song.data
-        // const songMarkup = `
-        // <div data-id=${song.id}>
-        //     <img src=${songData.attributes.album_url} height="200" width="250">
-        //     <h3>${songData.attributes.title}</h3>
-        //     <p>${songData.attributes.artist.name}</p>
-        //     <button data-id=${songData.id}>edit</button>
-        // </div>
-        // <br><br>`;
-
-        // document.querySelector("#song-container").innerHTML += songMarkup
+        const songData = song.data
+        render(songData)
     })
 }
