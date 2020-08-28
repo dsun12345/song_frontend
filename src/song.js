@@ -18,7 +18,7 @@ class Song {
               <p class="card-text">Genre: ${this.genre}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-id=${this.id}>Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-id=${this.id}>Delete</button>
                 </div>
                 <small class="text-muted">${this.artist.name}</small>
               </div>
@@ -36,37 +36,7 @@ class Song {
         // </div>
         // <br><br>`;
     }
-    
-    static findById(id) {
-        return this.all.find(song => parseInt(song.id) === id);
-    }
-
-    renderUpdateForm() {
-        return `
-        <form data-id=${this.id}>
-        <div class="form-group">
-          <label for="">Title</label>
-          <input type="title" class="form-control" id='input-title' placeholder="Enter your song name...">
-        </div>
-        <div class="form-group">
-          <label for="">Genre</label>
-          <input type="genre" class="form-control" id='input-genre' placeholder="Enter your song genre...">
-        </div>
-        <div class="form-group">
-          <label for="">Album URL</label>
-          <input type="album_url" class="form-control" id='input-url' placeholder="Enter your album image URL...">
-        </div>
-        <div class="form-group">
-          <label for="">Choose an Artist</label>
-          <select id="artists" name="artists" class="form-control">
-            <option value="1">Eminem</option>
-            <option value="2">Usher</option>
-            <option value="3">Nelly</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-      </form>`; 
-      }
+  
 }
 
 Song.all = [];

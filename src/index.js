@@ -1,14 +1,11 @@
 const endPoint = "http://localhost:3000/api/v1/songs"
 
-document.addEventListener('DOMContentLoaded', () => {
-    const app = new App();
-    app.attachEventListeners();
+    document.addEventListener('DOMContentLoaded', () => {
     getSongs()
-
-    const createSongForm = document.querySelector("#create-song-form")
-
+    let createSongForm = document.querySelector("#create-song-form")
     createSongForm.addEventListener("submit", (e) => 
     createFormHandler(e))
+
 })
 
 function getSongs() {
@@ -24,11 +21,13 @@ function getSongs() {
 
 function createFormHandler (e) {
     e.preventDefault()
+    let createSongForm = document.querySelector("#create-song-form")
     const titleInput = document.querySelector('#input-title').value
     const genreInput = document.querySelector('#input-genre').value
     const albumInput = document.querySelector('#input-url').value
     const artistId = parseInt(document.querySelector('#artists').value)
     postFetch(titleInput, genreInput, albumInput, artistId)
+    createSongForm.reset()
 }
 
 function postFetch(title, genre, album_url, artist_id) {
@@ -40,9 +39,11 @@ function postFetch(title, genre, album_url, artist_id) {
     })
     .then(response => response.json())
     .then(song => {
-        console.log(song);
         const songData = song.data
         let newSong = new Song(songData, songData.attributes)
         document.querySelector('#song-container').innerHTML += newSong.renderSongCard()
     })
+
+
+
 }
