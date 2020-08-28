@@ -14,27 +14,12 @@ function getSongs() {
     .then(response => response.json())
     .then(songs => {
         songs.data.forEach(song => {
-            render(song)
+            const newSong = new Song(song, song.attributes)
+            document.querySelector("#song-container").innerHTML += newSong.renderSongCard()
+            
         })
     })
 }
-
-function render (song) {
-    const songMarkup = `
-    <div data-id=${song.id}>
-        <img src = ${song.attributes.album_url}
-        height="200" width ="250">
-        <h3>Song Title: ${song.attributes.title}</h3>
-        <h5>Genre: ${song.attributes.genre}</h5>
-        <p>Artist: ${song.attributes.artist.name}</p>
-        <button data-id=${song.id}>edit</button>
-    </div>
-    <br><br>`;
-
-    document.querySelector('#song-container').innerHTML += songMarkup
-}
-
-
 
 function createFormHandler (e) {
     e.preventDefault()
@@ -56,6 +41,7 @@ function postFetch(title, genre, album_url, artist_id) {
     .then(song => {
         console.log(song);
         const songData = song.data
-        render(songData)
+        let newSong = new Song(songData, songData.attributes)
+        document.querySelector('#song-container').innerHTML += newSong.renderSongCard()
     })
 }
