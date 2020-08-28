@@ -1,7 +1,8 @@
 const endPoint = "http://localhost:3000/api/v1/songs"
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Dom Loaded");
+    const app = new App();
+    app.attachEventListeners();
     getSongs()
 
     const createSongForm = document.querySelector("#create-song-form")
