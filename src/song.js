@@ -17,9 +17,6 @@ class Song {
               <h5 class="card-title">Title: ${this.title}</h5>
               <p class="card-text">Genre: ${this.genre}</p>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-id=${this.id}>Delete</button>
-                </div>
                 <small class="text-muted">${this.artist.name}</small>
               </div>
             </div>
