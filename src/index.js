@@ -1,6 +1,7 @@
 const endPoint = "http://localhost:3000/api/v1/songs"
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("Dom Loaded");
     getSongs()
 
     const createSongForm = document.querySelector("#create-song-form")
@@ -15,8 +16,7 @@ function getSongs() {
     .then(songs => {
         songs.data.forEach(song => {
             const newSong = new Song(song, song.attributes)
-            document.querySelector("#song-container").innerHTML += newSong.renderSongCard()
-            
+            document.querySelector("#song-container").innerHTML += newSong.renderSongCard()   
         })
     })
 }
