@@ -18,7 +18,7 @@ class Song {
               <p class="card-text">Genre: ${this.genre}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-id=${this.id}>Edit</button>
+                  <button onclick = "myFunction()" type="button" class="btn btn-sm btn-outline-secondary" data-id=${this.id}>Edit</button>
                 </div>
                 <small class="text-muted">${this.artist.name}</small>
               </div>
@@ -55,15 +55,7 @@ class Song {
         <label for="">Album URL</label>
         <input type="album_url" class="form-control" id='input-url' value = "${this.album_url}">
       </div>
-      <div class="form-group">
-        <label for="">Choose an Artist</label>
-        <select id="artists" name="artists" class="form-control" value = "${this.artist.name}">
-          <option value="1">Eminem</option>
-          <option value="2">Usher</option>
-          <option value="3">Nelly</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button onclick = "myFunction()" type="submit" class="btn btn-primary">Submit</button>
     </form>`
   }
 }

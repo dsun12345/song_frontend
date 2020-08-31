@@ -14,6 +14,7 @@ const endPoint = "http://localhost:3000/api/v1/songs"
     })
 
     document.querySelector('#update-song').addEventListener('submit', e => updateFormHandler(e))
+    
 })
 
 function getSongs() {
@@ -40,19 +41,22 @@ function createFormHandler (e) {
 
 function updateFormHandler (e) {
     e.preventDefault();
-    const id = parseInt(e.target.dataset.id);
-    const song = Song.findById(id);
-    const title = e.target.querySelector('#input-title').value;
-    const genre = e.target.querySelector('#input-genre').value;
-    const album_url = e.target.querySelector('#input-url').value;
-    const artist_id = e.target.querySelector('#artists').value;
-    patchSong(song, title, genre, album_url, artist_id)
+    let id = parseInt(e.target.dataset.id);
+    let card = document.querySelector(`[data-id="${id}" ]`)
+    let song = Song.findById(id);
+    let title = e.target.querySelector('#input-title').value;
+    let genre = e.target.querySelector('#input-genre').value;
+    let album_url = e.target.querySelector('#input-url').value;
+    patchSong(song, title, genre, album_url)
+    card.querySelector(".card-title").textContent = "Title: " + title
+    card.querySelector(".card-text").textContent = "Genre: " + genre 
+    card.querySelector(".card-img-top").src = album_url
     
+    // document.getElementById("update-song").style.display = 'none';
 }
 
 function patchSong (song, title, genre, album_url, artist_id) {
-    const bodyJSON = {title, genre, album_url, artist_id }
-    
+    const bodyJSON = {id: song.id, title, genre, album_url, artist_id}
     fetch(`http://localhost:3000/api/v1/songs/${song.id}`, {
         method: 'PATCH',
         headers: {
@@ -61,13 +65,11 @@ function patchSong (song, title, genre, album_url, artist_id) {
         },
         body: JSON.stringify(bodyJSON),
     })
-    .then(res => res.json())
-    .then(updatedSong => console.log(updatedSong));
 }
 
 
-function postFetch(title, genre, album_url, artist_id) {
-    const bodyData = {title, genre, album_url, artist_id}
+function postFetch(title, genre, album_url) {
+    const bodyData = {title, genre, album_url}
     fetch(endPoint, {
         method: "POST",     
         headers: {"Content-Type": "application/json"},
@@ -80,6 +82,13 @@ function postFetch(title, genre, album_url, artist_id) {
         document.querySelector('#song-container').innerHTML += newSong.renderSongCard()
     })
 
+}
 
-
+function myFunction() {
+    let x = document.getElementById("update-song");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
 }
