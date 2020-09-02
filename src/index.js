@@ -14,7 +14,6 @@ const endPoint = "http://localhost:3000/api/v1/songs"
     })
 
     document.querySelector('#update-song').addEventListener('submit', e => updateFormHandler(e))
-    
 })
 
 function getSongs() {
@@ -51,12 +50,10 @@ function updateFormHandler (e) {
     card.querySelector(".card-title").textContent = "Title: " + title
     card.querySelector(".card-text").textContent = "Genre: " + genre 
     card.querySelector(".card-img-top").src = album_url
-    
-    // document.getElementById("update-song").style.display = 'none';
 }
 
-function patchSong (song, title, genre, album_url, artist_id) {
-    const bodyJSON = {id: song.id, title, genre, album_url, artist_id}
+function patchSong (song, title, genre, album_url) {
+    const bodyJSON = {id: song.id, title, genre, album_url}
     fetch(`http://localhost:3000/api/v1/songs/${song.id}`, {
         method: 'PATCH',
         headers: {
@@ -68,8 +65,8 @@ function patchSong (song, title, genre, album_url, artist_id) {
 }
 
 
-function postFetch(title, genre, album_url) {
-    const bodyData = {title, genre, album_url}
+function postFetch(title, genre, album_url, artist_id) {
+    const bodyData = {title, genre, album_url, artist_id}
     fetch(endPoint, {
         method: "POST",     
         headers: {"Content-Type": "application/json"},
@@ -91,4 +88,45 @@ function myFunction() {
     } else {
       x.style.display = "none";
     }
+}
+
+function sortList() {
+   
+    const allSongs = Song.all
+    const allSongsCopy = [...allSongs];
+    allSongsCopy.sort((a, b) => {
+        let nameA = a.title.toUpperCase();
+        let nameB = b.title.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    })  
+        document.querySelector("#song-container").innerHTML = ""
+    allSongsCopy.forEach(song => {
+        document.querySelector("#song-container").innerHTML += song.renderSongCard()
+    })
+}
+
+function renderSongCard () {
+    return `
+    <div class="col-md-4" data-id=${this.id}>
+      <div class="card mb-4 shadow-sm">
+        <img src=${this.album_url} class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Title: ${this.title}</h5>
+          <p class="card-text">Genre: ${this.genre}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button onclick = "myFunction()" type="button" class="btn btn-sm btn-outline-secondary" data-id=${this.id}>Edit</button>
+            </div>
+            <small class="text-muted">${this.artist.name}</small>
+          </div>
+        </div>
+      </div>
+    </div> `        
+    
 }
